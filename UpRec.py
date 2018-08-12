@@ -11,4 +11,5 @@ class UpRec(object):
         self.link = link
 
     def printRecord(self):
-        print("New Record: " + self.title + "by: " + self.artist)
+        print("New Record: " + self.title + " by: " + self.artist)
+        print(" buy here: \n" + self.link + " see? \n" + self.image)

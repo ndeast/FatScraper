@@ -3,7 +3,7 @@ from urllib.request import urlopen
 import UpRec
 
 
-def createUpRec(self, recLink):
+def createUpRec(recLink):
     page = urlopen(recLink)
     soup = BeautifulSoup(page, "html.parser")
 
