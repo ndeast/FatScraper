@@ -2,14 +2,14 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import UpRec
 
-# def createUpRec(self, recLink):
-#     page = urlopen(recLink)
-#     soup = BeautifulSoup(page, "html.parser")
-recLink = "https://fatwreck.com/record/detail/106"
-page = urlopen(recLink)
-soup = BeautifulSoup(page, "html.parser")
 
-print(soup.find('meta', property='og:image'))
+def createUpRec(self, recLink):
+    page = urlopen(recLink)
+    soup = BeautifulSoup(page, "html.parser")
 
-print(soup.find('h2', id='rectitle'))
-    
+    image = soup.find('meta', property='og:image')['content']
+    artist = soup.find('h2', id='rectitle').a.string
+    title = soup.find('h2', id='rectitle').span.contents[0]
+
+    return UpRec.UpRec(artist, title, image, recLink)
+

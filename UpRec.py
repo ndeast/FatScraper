@@ -1,4 +1,4 @@
-class UpRec:
+class UpRec(object):
     artist = ""
     title = ""
     image = ""

@@ -12,8 +12,7 @@ uprecs = soup.find_all('p', class_='uprec')
 
 for rec in uprecs:
     recLink = fatwreck + rec.find('a', 'title').get('href')
+    
 
 
-
-print(recLink)
 
