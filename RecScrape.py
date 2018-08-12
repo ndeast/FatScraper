@@ -12,4 +12,3 @@ def createUpRec(recLink):
     title = soup.find('h2', id='rectitle').span.contents[0]
 
     return UpRec.UpRec(artist, title, image, recLink)
-
