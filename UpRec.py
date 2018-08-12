@@ -1,3 +1,6 @@
+from marshmallow import Schema, fields
+
+
 class UpRec(object):
     artist = ""
     title = ""
@@ -13,3 +16,11 @@ class UpRec(object):
     def printRecord(self):
         print("New Record: " + self.title + " by: " + self.artist)
         print(" buy here: \n" + self.link + " see? \n" + self.image)
+
+
+class UpRecSchema(Schema):
+    artist = fields.Str()
+    title = fields.Str()
+    link = fields.Url()
+    image = fields.Url()
+    
