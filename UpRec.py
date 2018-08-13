@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 
 class UpRec(object):
@@ -21,6 +21,9 @@ class UpRec(object):
 class UpRecSchema(Schema):
     artist = fields.Str()
     title = fields.Str()
-    link = fields.Url()
-    image = fields.Url()
-    
+    image = fields.Str()
+    link = fields.Str()
+
+    @post_load
+    def make_uprec(self, data):
+        return UpRec(**data)
