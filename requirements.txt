@@ -8,4 +8,5 @@ mccabe==0.6.1
 pep8==1.7.1
 pylint==2.0.1
 six==1.11.0
+SQLAlchemy==1.2.10
 wrapt==1.10.11
