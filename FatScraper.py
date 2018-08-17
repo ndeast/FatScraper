@@ -21,7 +21,7 @@ session.commit()
 recDB = session.query(UpcomingRecord).all()
 
 for rec in recDB:
-    print(rec.artist + " " + rec.title)
+    print(rec.artist + " " + rec.title + " " + rec.release_date)
 
 session.close()
 engine.dispose()

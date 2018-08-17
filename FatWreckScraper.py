@@ -26,5 +26,8 @@ def createUpRec(recLink):
     image = soup.find('meta', property='og:image')['content']
     artist = soup.find('h2', id='rectitle').a.string.strip()
     title = soup.find('h2', id='rectitle').span.contents[0].strip()
+    releaseDate = soup.find(id='rright').b.string.replace('RELEASE DATE: ', "")
 
-    return UpcomingRecord.UpcomingRecord(artist, title, image, recLink)
+    upRec = UpcomingRecord.UpcomingRecord(artist, title, image, recLink)
+    upRec.release_date = releaseDate
+    return upRec
