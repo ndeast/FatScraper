@@ -1,37 +1,27 @@
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-from marshmallow import pprint
-from UpRec import UpRecSchema
-import UpRec
-import RecScrape
+from UpcomingRecord import Base, UpcomingRecord
+import FatWreckScraper
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-uprecList = []
-schema = UpRecSchema(many=True)
-newRelease = False
+# Connect to DB and create session
+engine = create_engine('sqlite:///db/UpcomingRecords.db')
+Base.metadata.bind = engine
 
-# TODO: replace saving to file with SQLite DB
-#       add deleted flag and release date to UpRec
+DBSession = sessionmaker()
+DBSession.bind = engine
+session = DBSession()
+###################################
 
-# # open and read json outfile
-# with open("UpcomingRecords.txt", 'r') as inFile:
-#     text = inFile.read()
-#     if (text):
-#         currentUpRecs = schema.loads(text)
+upRecs = FatWreckScraper.scrape()
 
-# Open and parse page
-fatwreck = "https://fatwreck.com"
-page = urlopen(fatwreck)
-soup = BeautifulSoup(page, "html.parser")
+for rec in upRecs:
+    session.add(rec)
+session.commit()
 
-# store upcoming records if not already obtained
-uprecs = soup.find_all('p', class_='uprec')
-for rec in uprecs:
-    recLink = fatwreck + rec.find('a', 'title').get('href')
-    record = RecScrape.createUpRec(recLink)
-    uprecList.append(record)
-    newRelease = True
+recDB = session.query(UpcomingRecord).all()
 
-if newRelease:
-    jsonOutput = schema.dumps(uprecList)
-    with open("UpcomingRecords.txt", 'w') as outFile:
-        outFile.write(jsonOutput)
+for rec in recDB:
+    print(rec.artist + " " + rec.title)
+
+session.close()
+engine.dispose()
