@@ -3,3 +3,4 @@ env/
 FatWreck Site/
 __pycache__/
 UpcomingRecords.txt
+db/
