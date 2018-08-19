@@ -29,14 +29,16 @@ Base.metadata.create_all(engine)
 
 
 class UpcomingRecordSchema(Schema):
+    class Meta:
+        ordered = True
     id = fields.Integer()
     artist = fields.Str()
     title = fields.Str()
-    image = fields.Str()
+    release_date = fields.Str()
     link = fields.Str()
-    release_date = fields.Date()
+    image = fields.Str()
     is_released = fields.Boolean()
-  
+
     @post_load
     def make_uprec(self, data):
         return UpcomingRecord(**data)

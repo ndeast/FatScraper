@@ -1,4 +1,4 @@
-from UpcomingRecord import Base, UpcomingRecord
+from UpcomingRecord import Base, UpcomingRecord, UpcomingRecordSchema
 import FatWreckScraper
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -12,6 +12,8 @@ DBSession.bind = engine
 session = DBSession()
 ###################################
 
+schema = UpcomingRecordSchema(many=True)
+
 upRecs = FatWreckScraper.scrape()
 
 for rec in upRecs:
@@ -20,12 +22,9 @@ session.commit()
 
 recDB = session.query(UpcomingRecord).all()
 
-for rec in recDB:
-    print(rec.artist + " " + rec.title + " " + rec.release_date)
-    if(rec.is_released):
-        print("true")
-    else:
-        print("false")
+jsonOutput = schema.dumps(recDB)
+with open("UpcomingRecords.txt", 'w') as outFile:
+    outFile.write(jsonOutput)
 
 session.close()
 engine.dispose()
