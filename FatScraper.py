@@ -22,6 +22,10 @@ recDB = session.query(UpcomingRecord).all()
 
 for rec in recDB:
     print(rec.artist + " " + rec.title + " " + rec.release_date)
+    if(rec.is_released):
+        print("true")
+    else:
+        print("false")
 
 session.close()
 engine.dispose()
