@@ -3,5 +3,6 @@ env/
 FatWreck Site/
 __pycache__/
 UpcomingRecords.txt
+UpcomingRecords.json
 db/
 artwork/

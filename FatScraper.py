@@ -32,7 +32,7 @@ if newRelease:
     updated_recDB = session.query(UpcomingRecord).all()
 
     jsonOutput = schema.dumps(updated_recDB)
-    with open("UpcomingRecords.txt", 'w') as outFile:
+    with open("UpcomingRecords.json", 'w') as outFile:
         outFile.write(jsonOutput)
 
 
