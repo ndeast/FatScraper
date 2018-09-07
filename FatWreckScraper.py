@@ -41,8 +41,8 @@ def createUpRec(recLink):
 
 def saveAlbumArt(imageLink, link):
     if url_is_good(imageLink):
-        urlretrieve(imageLink, "artwork/" + link[-3:] + ".jpg")
-        return ("/artwork/" + link[-3:] + ".jpg")
+        urlretrieve(imageLink, "artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
+        return ("/artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
 
 
 def url_is_good(url):

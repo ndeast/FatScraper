@@ -26,6 +26,7 @@ for rec in upRecs:
         session.add(rec)
         session.commit()
         newRelease = True
+        print(rec)
 
 # output new releases to json file
 if newRelease:

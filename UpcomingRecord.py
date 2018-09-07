@@ -24,6 +24,10 @@ class UpcomingRecord(Base):
         self.release_date = None
         self.is_released = False
 
+    def __str__(self):
+        return "Title: {}\nArtist: {}\nRelease Date: {}\n{}\n".format(
+            self.title, self.artist, self.release_date, self.link)
+
 engine = create_engine('sqlite:///db/UpcomingRecords.db')
 Base.metadata.create_all(engine)
 
