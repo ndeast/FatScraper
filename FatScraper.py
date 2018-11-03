@@ -20,13 +20,13 @@ session = DBSession()
 # Add any new additions to database
 current_rec_titles = [rec.title for rec in session.query(UpcomingRecord.title)]
 upRecs = FatWreckScraper.scrape()
-
-for rec in upRecs:
-    if rec.title not in current_rec_titles:
-        session.add(rec)
-        session.commit()
-        newRelease = True
-        print(rec)
+if upRecs is not None:
+    for rec in upRecs:
+        if rec.title not in current_rec_titles:
+            session.add(rec)
+            session.commit()
+            newRelease = True
+            print(rec)
 
 # output new releases to json file
 if newRelease:

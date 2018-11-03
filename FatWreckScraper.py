@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, urlretrieve
+from urllib.error import URLError, HTTPError
 from datetime import datetime, date
 import UpcomingRecord
 
@@ -11,7 +12,7 @@ def scrape():
     if url_is_good(fatwreck):
         page = urlopen(fatwreck)
         soup = BeautifulSoup(page, "html.parser")
-
+       
         # store upcoming records
         uprecs = soup.find_all('p', class_='uprec')
         for rec in uprecs:
@@ -45,6 +46,17 @@ def saveAlbumArt(imageLink, link):
         return ("/artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
 
 
+# Better than just checking error codes which doesn't help
+# when the server is down.
+# taken from: https://stackoverflow.com/a/38145622
 def url_is_good(url):
-    if urlopen(url).getcode() == 200:
-        return True
+    try:
+        response = urlopen(url)
+    except HTTPError as e:
+        print('The server couldn\'t fulfill the request.')
+        print('Error code: ', e.code)
+    except URLError as e:
+        print('We failed to reach a server.')
+        print('Reason: ', e.reason)
+    else:
+        return True       
