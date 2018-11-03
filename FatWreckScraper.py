@@ -12,7 +12,7 @@ def scrape():
     if url_is_good(fatwreck):
         page = urlopen(fatwreck)
         soup = BeautifulSoup(page, "html.parser")
-       
+
         # store upcoming records
         uprecs = soup.find_all('p', class_='uprec')
         for rec in uprecs:
@@ -52,11 +52,10 @@ def saveAlbumArt(imageLink, link):
 def url_is_good(url):
     try:
         response = urlopen(url)
-    except HTTPError as e:
-        print('The server couldn\'t fulfill the request.')
-        print('Error code: ', e.code)
-    except URLError as e:
-        print('We failed to reach a server.')
-        print('Reason: ', e.reason)
-    else:
-        return True       
+    except HTTPError:
+        return False
+    except URLError:
+        return False
+    except:
+        return False
+    return True
