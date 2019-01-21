@@ -4,5 +4,6 @@ FatWreck Site/
 __pycache__/
 UpcomingRecords.txt
 UpcomingRecords.json
+UpcomingRecord.pyc
 db/
 artwork/

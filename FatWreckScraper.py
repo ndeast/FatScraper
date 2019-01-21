@@ -9,14 +9,16 @@ def scrape():
     uprecList = []
     # Open and parse homepage
     fatwreck = "https://fatwreck.com"
-    if url_is_good(fatwreck):
-        page = urlopen(fatwreck)
+    newreleases = "https://fatwreck.com/collections/all-releases"
+    if url_is_good(newreleases):
+        page = urlopen(newreleases)
         soup = BeautifulSoup(page, "html.parser")
 
         # store upcoming records
-        uprecs = soup.find_all('p', class_='uprec')
+        uprecs = soup.find_all('div', class_='fat-list-product')
         for rec in uprecs:
-            recLink = fatwreck + rec.find('a', 'title').get('href')
+            recLink = fatwreck + rec.find(
+                'a', 'fat-list-product--image').get('href')
             record = createUpRec(recLink)
             uprecList.append(record)
         return uprecList
