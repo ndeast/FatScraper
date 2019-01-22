@@ -29,7 +29,8 @@ def createUpRec(recLink):
         page = urlopen(recLink)
         soup = BeautifulSoup(page, "html.parser")
 
-        imageLink = soup.find('meta', property='og:image')['content']
+        imageLink = "https:" + soup.find(
+            'meta', itemprop='image')['content']
         image = saveAlbumArt(imageLink, recLink)
         artist = soup.find('h2', id='rectitle').a.string.strip()
         title = soup.find('h2', id='rectitle').span.contents[0].strip()
