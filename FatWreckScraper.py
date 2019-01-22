@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen, urlretrieve
 from urllib.error import URLError, HTTPError
 from datetime import datetime, date
+import datefinder
 import UpcomingRecord
 
 
@@ -34,10 +35,10 @@ def createUpRec(recLink):
         image = saveAlbumArt(imageLink, recLink)
         artist = soup.find('meta', itemprop='brand')['content']
         title = soup.find('meta', itemprop='name')['content']
-        releaseDate = soup.find(
-            'div', class_="fat-product-description").strong.string
-        d = imageLink.split('- ', 1)[-1]
-        releaseDate = datetime.strptime(d, '%B %d, %Y').date()
+        description = soup.find(
+            'meta', itemprop='description')['content'].split(' ', 1)[-1]
+        dates = datefinder.find_dates(description)
+        releaseDate = next(dates).date()
 
         upRec = UpcomingRecord.UpcomingRecord(artist, title, image, recLink)
         upRec.release_date = releaseDate

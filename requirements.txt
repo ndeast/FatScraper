@@ -2,6 +2,7 @@ astroid==2.0.1
 beautifulsoup4==4.6.1
 bs4==0.0.1
 click==6.7
+datefinder==0.7.0
 Flask==1.0.2
 isort==4.3.4
 itsdangerous==0.24
@@ -12,6 +13,9 @@ marshmallow==3.0.0b13
 mccabe==0.6.1
 pep8==1.7.1
 pylint==2.0.1
+python-dateutil==2.7.5
+pytz==2018.9
+regex==2018.11.22
 six==1.11.0
 SQLAlchemy==1.2.10
 Werkzeug==0.14.1
