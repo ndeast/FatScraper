@@ -35,8 +35,9 @@ def createUpRec(recLink):
         artist = soup.find('meta', itemprop='brand')['content']
         title = soup.find('meta', itemprop='name')['content']
         releaseDate = soup.find(
-            id='rright').b.string.replace('RELEASE DATE: ', "")
-        releaseDate = datetime.strptime(releaseDate, '%B %d, %Y').date()
+            'div', class_="fat-product-description").strong.string
+        d = imageLink.split('- ', 1)[-1]
+        releaseDate = datetime.strptime(d, '%B %d, %Y').date()
 
         upRec = UpcomingRecord.UpcomingRecord(artist, title, image, recLink)
         upRec.release_date = releaseDate
