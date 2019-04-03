@@ -23,7 +23,7 @@ upRecs = FatWreckScraper.scrape()
 if upRecs is not None:
     for rec in upRecs:
         if rec.title not in current_rec_titles:
-            image = FatWreckScraper.saveAlbumArt(rec.imageLink, rec.link)
+            image = FatWreckScraper.saveAlbumArt(rec.image, rec.link)
             rec.image = image
             session.add(rec)
             session.commit()
