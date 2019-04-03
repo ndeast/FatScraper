@@ -10,7 +10,7 @@ def scrape():
     uprecList = []
     # Open and parse homepage
     fatwreck = "https://fatwreck.com"
-    newreleases = "https://fatwreck.com/collections/all-releases"
+    newreleases = "https://fatwreck.com/collections/all-releases?sort_by=created-descending"
     if url_is_good(newreleases):
         page = urlopen(newreleases)
         soup = BeautifulSoup(page, "html.parser")
