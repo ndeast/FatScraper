@@ -11,7 +11,7 @@ class UpcomingRecord(Base):
     id = Column(Integer, primary_key=True)
     artist = Column(String(40))
     title = Column(String(80))
-    image = Column(String(100))
+    image = Column(String(100), nullable=True, default="img")
     link = Column(String(40))
     release_date = Column(String(250), nullable=True)
     is_released = Column(Boolean, unique=False, default=False, nullable=True)

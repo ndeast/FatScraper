@@ -32,7 +32,7 @@ def createUpRec(recLink):
 
         imageLink = "https:" + soup.find(
             'meta', itemprop='image')['content']
-        image = saveAlbumArt(imageLink, recLink)
+        # image = saveAlbumArt(imageLink, recLink)
         artist = soup.find('meta', itemprop='brand')['content']
         title = soup.find('meta', itemprop='name')['content']
         description = soup.find(
@@ -40,7 +40,8 @@ def createUpRec(recLink):
         dates = datefinder.find_dates(description)
         releaseDate = next(dates).date()
 
-        upRec = UpcomingRecord.UpcomingRecord(artist, title, image, recLink)
+        upRec = UpcomingRecord.UpcomingRecord(
+            artist, title, imageLink, recLink)
         upRec.release_date = releaseDate
         return upRec
 
