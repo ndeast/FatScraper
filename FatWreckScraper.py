@@ -6,7 +6,7 @@ import datefinder
 import UpcomingRecord
 
 
-def scrape():
+def scrape(current_rec_links):
     uprecList = []
     # Open and parse homepage
     fatwreck = "https://fatwreck.com"
@@ -15,13 +15,14 @@ def scrape():
         page = urlopen(newreleases)
         soup = BeautifulSoup(page, "html.parser")
 
-        # store upcoming records
+        # store new releases not in database
         uprecs = soup.find_all('div', class_='fat-list-product')
         for rec in uprecs:
             recLink = fatwreck + rec.find(
                 'a', 'fat-list-product--image').get('href')
-            record = createUpRec(recLink)
-            uprecList.append(record)
+            if recLink not in current_rec_links:
+                record = createUpRec(recLink)
+                uprecList.append(record)
         return uprecList
 
 
@@ -32,7 +33,7 @@ def createUpRec(recLink):
 
         imageLink = "https:" + soup.find(
             'meta', itemprop='image')['content']
-        # image = saveAlbumArt(imageLink, recLink)
+        image = saveAlbumArt(imageLink, recLink)
         artist = soup.find('meta', itemprop='brand')['content']
         title = soup.find('meta', itemprop='name')['content']
         description = soup.find(
@@ -41,7 +42,7 @@ def createUpRec(recLink):
         releaseDate = next(dates).date()
 
         upRec = UpcomingRecord.UpcomingRecord(
-            artist, title, imageLink, recLink)
+            artist, title, image, recLink)
         upRec.release_date = releaseDate
         return upRec
 

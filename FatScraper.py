@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 
 
 newRelease = False
-
 # Connect to DB and create session
 engine = create_engine('sqlite:///db/UpcomingRecords.db')
 Base.metadata.bind = engine
@@ -17,14 +16,15 @@ DBSession.bind = engine
 session = DBSession()
 ###################################
 #
-# Add any new additions to database
+# Pull existing titles and links
 current_rec_titles = [rec.title for rec in session.query(UpcomingRecord.title)]
-upRecs = FatWreckScraper.scrape()
+current_rec_links = [rec.link for rec in session.query(UpcomingRecord.link)]
+upRecs = FatWreckScraper.scrape(current_rec_links)
+###################################
+# 
 if upRecs is not None:
     for rec in upRecs:
         if rec.title not in current_rec_titles:
-            image = FatWreckScraper.saveAlbumArt(rec.image, rec.link)
-            rec.image = image
             session.add(rec)
             session.commit()
             newRelease = True
