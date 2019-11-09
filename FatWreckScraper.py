@@ -35,9 +35,9 @@ def createUpRec(recLink):
             'meta', itemprop='image')['content']
         image = saveAlbumArt(imageLink, recLink)
         artist = soup.find('meta', itemprop='brand')['content']
-        title = soup.find('meta', itemprop='name')['content']
+        title = soup.find('meta', itemprop='name')['content'].split('-', 1)[0]
         description = soup.find(
-            'meta', itemprop='description')['content'].split(' ', 1)[-1]
+            'meta', itemprop='description')['content'].split('-', 1)[-1]
         dates = datefinder.find_dates(description)
         releaseDate = next(dates).date()
 
