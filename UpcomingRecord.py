@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, post_load
-from sqlalchemy import Column, Integer, String, Boolean, create_engine
+from sqlalchemy import Column, Integer, String, Boolean, Date, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -13,15 +13,15 @@ class UpcomingRecord(Base):
     title = Column(String(80))
     image = Column(String(100), nullable=True, default="img")
     link = Column(String(40))
-    release_date = Column(String(250), nullable=True)
+    release_date = Column(Date)
     is_released = Column(Boolean, unique=False, default=False, nullable=True)
 
-    def __init__(self, artist, title, image, link):
+    def __init__(self, artist, title, image, link, date):
         self.artist = artist
         self.title = title
         self.image = image
         self.link = link
-        self.release_date = None
+        self.release_date = date
         self.is_released = False
 
     def __str__(self):
@@ -38,7 +38,7 @@ class UpcomingRecordSchema(Schema):
     id = fields.Integer()
     artist = fields.Str()
     title = fields.Str()
-    release_date = fields.Str()
+    release_date = fields.Date()
     link = fields.Str()
     image = fields.Str()
     is_released = fields.Boolean()

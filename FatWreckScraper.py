@@ -42,8 +42,8 @@ def createUpRec(recLink):
         releaseDate = next(dates).date()
 
         upRec = UpcomingRecord.UpcomingRecord(
-            artist, title, image, recLink)
-        upRec.release_date = releaseDate
+            artist, title, image, recLink, releaseDate)
+       
         return upRec
 
 
