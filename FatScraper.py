@@ -6,6 +6,7 @@ from datetime import datetime, date
 
 def main():
     newRelease = False
+    newReleases = []
     # Connect to DB and create session
     engine = create_engine('sqlite:///db/UpcomingRecords.db')
     Base.metadata.bind = engine
@@ -29,6 +30,7 @@ def main():
             if rec.title not in current_rec_titles:
                 session.add(rec)
                 newRelease = True
+                newReleases.append(rec.id)
                 print(rec)
 
     #  update released flag on database entries
@@ -43,8 +45,10 @@ def main():
         session.commit()
         updated_recDB = session.query(UpcomingRecord).all()
         jsonOutput = schema.dumps(updated_recDB)
-        with open("UpcomingRecords.json", 'w') as outFile:
+        with open("UpcomingRecords.json", 'w') as outFile, open("new_releases", 'w') as new:
             outFile.write(jsonOutput)
+            for rec_id in newReleases:
+                new.write("%i\n" % rec_id)
 
     session.close()
     engine.dispose()
