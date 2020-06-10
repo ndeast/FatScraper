@@ -48,7 +48,8 @@ def main():
         with open("UpcomingRecords.json", 'w') as outFile, open("new_releases", 'w') as new:
             outFile.write(jsonOutput)
             for rec_id in newReleases:
-                new.write("%i\n" % rec_id)
+                print(rec_id)
+                new.write("%s\n" % str(rec_id))
 
     session.close()
     engine.dispose()
