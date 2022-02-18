@@ -2,9 +2,7 @@ env/
 .vscode/
 FatWreck Site/
 __pycache__/
-UpcomingRecords.txt
-UpcomingRecords.json
-UpcomingRecord.pyc
+output/
 db/
 artwork/
 testing.py

@@ -1,3 +1,4 @@
+from os import mkdir
 from UpcomingRecord import Base, UpcomingRecord, UpcomingRecordSchema
 import FatWreckScraper
 from sqlalchemy import create_engine, exists
@@ -8,7 +9,7 @@ def main():
     newRelease = False
     newReleases = 0
     # Connect to DB and create session
-    engine = create_engine('sqlite:///db/UpcomingRecords.db')
+    engine = create_engine('sqlite:////FatScraper/output/db/UpcomingRecords.db')
     Base.metadata.bind = engine
 
     schema = UpcomingRecordSchema(many=True)
@@ -45,7 +46,7 @@ def main():
         session.commit()
         updated_recDB = session.query(UpcomingRecord).all()
         jsonOutput = schema.dumps(updated_recDB)
-        with open("UpcomingRecords.json", 'w') as outFile, open("new_releases", 'w') as new:
+        with open("/FatScraper/output/UpcomingRecords.json", 'w') as outFile, open("new_releases", 'w') as new:
             outFile.write(jsonOutput)
             new.write(str(newReleases))
 

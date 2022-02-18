@@ -4,7 +4,7 @@ from datetime import date
 from UpcomingRecord import UpcomingRecord, Base
 from FatWreckScraper import saveAlbumArt
 
-engine = create_engine('sqlite:///db/UpcomingRecords.db')
+engine = create_engine('sqlite:///../db/UpcomingRecords.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)

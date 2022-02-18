@@ -28,7 +28,7 @@ class UpcomingRecord(Base):
         return "Title: {}\nArtist: {}\nRelease Date: {}\n{}\n".format(
             self.title, self.artist, self.release_date, self.link)
 
-engine = create_engine('sqlite:///db/UpcomingRecords.db')
+engine = create_engine('sqlite:////FatScraper/output/db/UpcomingRecords.db')
 Base.metadata.create_all(engine)
 
 

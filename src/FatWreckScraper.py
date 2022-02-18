@@ -49,8 +49,8 @@ def createUpRec(recLink):
 
 def saveAlbumArt(imageLink, link):
     if url_is_good(imageLink):
-        urlretrieve(imageLink, "artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
-        return ("/artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
+        urlretrieve(imageLink, "/FatScraper/output/artwork/" + link.rsplit('/', 1)[-1] + ".jpg")
+        return ("/FatScraper/output/artwork" + link.rsplit('/', 1)[-1] + ".jpg")
 
 
 # Better than just checking error codes which doesn't help
